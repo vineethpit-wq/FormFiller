@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM FILLER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-950: #001331;
+            --navy-900: #00215c;
+            --navy-800: #003087;
+            --navy-700: #1a4aa0;
+            --navy-500: #2f6bd8;
+            --gold-500: #f5b301;
+            --gold-400: #ffc93c;
+            --gold-600: #d99a00;
+            --ink: #1c2440;
+            --muted: #5b647e;
+            --line: #e3e9f5;
+            --bg-soft: #f4f7fd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(1100px 500px at 85% -10%, rgba(245, 179, 1, 0.18), transparent 60%),
+                radial-gradient(900px 500px at -10% 110%, rgba(47, 107, 216, 0.35), transparent 60%),
+                linear-gradient(150deg, var(--navy-950) 0%, var(--navy-900) 45%, var(--navy-800) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative floating shapes */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::before {
+            width: 420px; height: 420px;
+            top: -160px; right: -120px;
+            background: radial-gradient(circle, rgba(245,179,1,0.14), transparent 70%);
+        }
+        body::after {
+            width: 520px; height: 520px;
+            bottom: -220px; left: -160px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%);
+        }
+
+        /* ===== Header / Hero ===== */
+        .hero {
+            max-width: 860px;
+            width: 100%;
+            margin: 28px auto 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: riseIn 0.7s ease both;
+        }
+
+        .hero .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 18px;
+            border-radius: 999px;
+            background: rgba(245, 179, 1, 0.12);
+            border: 1px solid rgba(245, 179, 1, 0.45);
+            color: var(--gold-400);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .hero .badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--gold-500);
+            box-shadow: 0 0 10px rgba(245, 179, 1, 0.9);
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(30px, 5vw, 46px);
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 3px;
+            margin: 16px 0 6px;
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--gold-400), var(--gold-500));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.4px;
+        }
+
+        .hero .rule {
+            width: 90px;
+            height: 4px;
+            margin: 18px auto 0;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+            box-shadow: 0 2px 14px rgba(245, 179, 1, 0.5);
+        }
+
+        /* ===== Card container ===== */
+        .container {
+            max-width: 860px;
+            width: 100%;
+            margin: 30px auto 50px;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 30px 70px rgba(0, 10, 40, 0.45);
+            padding: 42px clamp(22px, 5vw, 48px) 48px;
+            position: relative;
+            z-index: 1;
+            animation: riseIn 0.7s 0.12s ease both;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--navy-800) 0%, var(--gold-500) 50%, var(--navy-800) 100%);
+        }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-section {
+            margin-bottom: 34px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== Primary section buttons ===== */
+        .main-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            background: linear-gradient(120deg, var(--navy-900) 0%, var(--navy-700) 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 1.6px;
+            text-align: left;
+            margin-bottom: 18px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 26px rgba(0, 33, 92, 0.28);
+        }
+
+        .main-heading::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, var(--gold-400), var(--gold-600));
+        }
+
+        .main-heading::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -70%;
+            width: 45%; height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255,255,255,0.16), transparent);
+            transform: skewX(-18deg);
+            transition: left 0.55s ease;
+        }
+
+        .main-heading:hover::after {
+            left: 130%;
+        }
+
+        a.main-heading:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(0, 33, 92, 0.4);
+        }
+
+        .main-heading .ico {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            flex: 0 0 40px;
+            border-radius: 10px;
+            background: rgba(245, 179, 1, 0.15);
+            border: 1px solid rgba(245, 179, 1, 0.4);
+            color: var(--gold-400);
+            font-size: 19px;
+        }
+
+        .main-heading .arrow {
+            margin-left: auto;
+            font-size: 20px;
+            color: var(--gold-400);
+            transition: transform 0.25s ease;
+        }
+
+        a.main-heading:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* Static (non-link) section header */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 24px;
+            background: linear-gradient(120deg, var(--navy-900) 0%, var(--navy-700) 100%);
+            color: #ffffff;
+            border-radius: 14px 14px 0 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 1.6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 26px rgba(0, 33, 92, 0.28);
+            margin-bottom: 0;
+        }
+
+        .section-label::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, var(--gold-400), var(--gold-600));
+        }
+
+        .section-label .ico {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            flex: 0 0 40px;
+            border-radius: 10px;
+            background: rgba(245, 179, 1, 0.15);
+            border: 1px solid rgba(245, 179, 1, 0.4);
+            color: var(--gold-400);
+            font-size: 19px;
+        }
+
+        /* ===== Sub section ===== */
+        .sub-section {
+            border: 1px solid var(--line);
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            padding: 22px 20px 12px;
+            background: var(--bg-soft);
+        }
+
+        .sub-item {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+            margin-bottom: 12px;
+        }
+
+        .sub-heading {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            background-color: #ffffff;
+            color: var(--ink);
+            text-decoration: none;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--navy-800);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 14.5px;
+            font-weight: 500;
+            font-family: inherit;
+            text-align: left;
+            line-height: 1.45;
+        }
+
+        .sub-heading .tick {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px; height: 26px;
+            flex: 0 0 26px;
+            border-radius: 8px;
+            background: rgba(0, 48, 135, 0.08);
+            color: var(--navy-800);
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .sub-heading:hover {
+            border-left-color: var(--gold-500);
+            background-color: #fffdf6;
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(0, 33, 92, 0.1);
+            color: var(--navy-800);
+        }
+
+        .sub-heading:hover .tick {
+            background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
+            color: #ffffff;
+        }
+
+        .additional-docs-btn {
+            align-self: center;
+            padding: 11px 16px;
+            background: linear-gradient(135deg, var(--gold-400) 0%, var(--gold-600) 100%);
+            color: #3a2a00;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            font-family: inherit;
+            box-shadow: 0 6px 16px rgba(245, 179, 1, 0.35);
+        }
+
+        .additional-docs-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(245, 179, 1, 0.5);
+            filter: brightness(1.04);
+        }
+
+        .additional-docs-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            text-align: center;
+            padding: 26px 20px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer .foot-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        footer .foot-mark::before,
+        footer .foot-mark::after {
+            content: '';
+            width: 46px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(245, 179, 1, 0.7));
+        }
+
+        footer .foot-mark::after {
+            background: linear-gradient(90deg, rgba(245, 179, 1, 0.7), transparent);
+        }
+
+        footer .foot-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold-500);
+            box-shadow: 0 0 8px rgba(245, 179, 1, 0.8);
+        }
+
+        footer .foot-text {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 12px;
+            letter-spacing: 2.5px;
+        }
+
+        footer .foot-author {
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--gold-400), var(--gold-500), var(--gold-600));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: var(--gold-500);
+            text-shadow: 0 0 14px rgba(245, 179, 1, 0.35);
+            margin-left: 4px;
+        }
+
+        /* ===== Toast ===== */
+        .download-status {
+            position: fixed;
+            top: 22px;
+            right: 22px;
+            background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+            border-left: 4px solid var(--gold-500);
+            color: white;
+            padding: 15px 22px;
+            border-radius: 10px;
+            display: none;
+            z-index: 3000;
+            font-size: 14px;
+            box-shadow: 0 14px 30px rgba(0, 20, 60, 0.4);
+        }
+
+        .download-status.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== Modal Styles ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 15, 45, 0.62);
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 9% auto;
+            padding: 30px;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: 0 30px 70px rgba(0, 10, 40, 0.5);
+            animation: slideDown 0.32s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--navy-800), var(--gold-500), var(--navy-800));
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            color: var(--navy-800);
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .close-btn {
+            font-size: 26px;
+            font-weight: bold;
+            color: #aab2c5;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            line-height: 1;
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--navy-800);
+            background: rgba(0, 48, 135, 0.08);
+        }
+
+        .document-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .document-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background-color: var(--bg-soft);
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--navy-800);
+            transition: all 0.2s ease;
+        }
+
+        .document-item:hover {
+            border-left-color: var(--gold-500);
+            box-shadow: 0 6px 16px rgba(0, 33, 92, 0.08);
+        }
+
+        .document-item span {
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 14px;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .download-doc-btn {
+            padding: 9px 16px;
+            background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
+            color: #3a2a00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 5px 14px rgba(245, 179, 1, 0.35);
+        }
+
+        .download-doc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 20px rgba(245, 179, 1, 0.5);
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--line);
+        }
+
+        .close-modal-btn {
+            padding: 11px 26px;
+            background-color: #8a93ab;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .close-modal-btn:hover {
+            background-color: var(--navy-800);
+        }
+
+        /* ===== FEDNET Instructions Modal ===== */
+        .fednet-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 15, 45, 0.62);
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .fednet-modal.show {
+            display: block;
+        }
+
+        .fednet-modal-content {
+            background-color: white;
+            margin: 4% auto;
+            padding: 30px;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 660px;
+            box-shadow: 0 30px 70px rgba(0, 10, 40, 0.5);
+            animation: slideDown 0.32s ease;
+            max-height: 84vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .fednet-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold-500), var(--navy-800), var(--gold-500));
+        }
+
+        .fednet-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--gold-500);
+            padding-bottom: 15px;
+        }
+
+        .fednet-modal-header h2 {
+            color: var(--navy-800);
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .fednet-instructions {
+            background: linear-gradient(135deg, #fffaf0, #fff3d9);
+            border-left: 5px solid var(--gold-500);
+            padding: 20px 22px;
+            margin: 15px 0;
+            border-radius: 10px;
+            line-height: 1.8;
+            color: var(--ink);
+            font-size: 14px;
+        }
+
+        .fednet-instructions p {
+            margin: 12px 0;
+        }
+
+        .fednet-instructions strong {
+            color: var(--navy-800);
+        }
+
+        .fednet-button-group {
+            display: flex;
+            gap: 14px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--line);
+        }
+
+        .fednet-proceed-btn {
+            padding: 12px 26px;
+            background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
+            color: #3a2a00;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 16px rgba(245, 179, 1, 0.35);
+        }
+
+        .fednet-proceed-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(245, 179, 1, 0.5);
+        }
+
+        .fednet-close-btn {
+            padding: 12px 26px;
+            background-color: #8a93ab;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .fednet-close-btn:hover {
+            background-color: var(--navy-800);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 640px) {
+            body { padding: 14px; }
+            .container { padding: 30px 18px 36px; }
+            .sub-item { flex-direction: column; }
+            .additional-docs-btn { align-self: flex-start; }
+            .modal-content, .fednet-modal-content { margin: 14% auto; padding: 22px; }
+        }
+    </style>
+    <script>
+        function downloadFile(fileName) {
+            const link = document.createElement('a');
+            link.href = fileName;
+            link.download = fileName;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            setTimeout(() => {
+                link.click();
+            }, 100);
+            setTimeout(() => {
+                document.body.removeChild(link);
+            }, 200);
+        }
+
+        function showModal(files, title) {
+            const modal = document.getElementById('documentsModal');
+            const docList = document.getElementById('documentsList');
+            const modalTitle = document.getElementById('modalTitle');
+
+            modalTitle.textContent = title;
+            docList.innerHTML = '';
+
+            files.forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.className = 'document-item';
+                listItem.innerHTML = `
+                    <span>${file}</span>
+                    <button class="download-doc-btn" onclick="downloadFile('${file}')">Download</button>
+                `;
+                docList.appendChild(listItem);
+            });
+
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('documentsModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('documentsModal');
+            const fednetModal = document.getElementById('fednetModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+            if (event.target == fednetModal) {
+                closeFednetModal();
+            }
+        }
+
+        function downloadTrustDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_Trust_Resolution.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'Trust - Additional Documents');
+        }
+
+        function downloadCompanyDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_Company_Resolution.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'Company - Additional Documents');
+        }
+
+        function downloadSocietyDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_Society_Resolution.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'Society - Additional Documents');
+        }
+
+        function downloadAssociationDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_Mandate_Club-Association-Group_of_Individuals.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'Association - Additional Documents');
+        }
+
+        function downloadPartnershipDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_PartnershipMandate.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'Partnership - Additional Documents');
+        }
+
+        function downloadLLPDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FedOne_Enhanced_Due_Diligence.docx',
+                'FedOne_LLP_Resolution.docx',
+                'FO_CPV.pdf'
+            ];
+            showModal(files, 'LLP - Additional Documents');
+        }
+
+        function downloadFednetDocs(e) {
+            e.preventDefault();
+            const files = [
+                'FN_Mandate_Corporates.pdf',
+                'IndemnityBond.docx'
+            ];
+            showModal(files, 'FEDNET - Additional Documents');
+        }
+
+        // FEDNET Modal Functions
+        function showFednetModal(e) {
+            e.preventDefault();
+            const fednetModal = document.getElementById('fednetModal');
+            fednetModal.classList.add('show');
+        }
+
+        function closeFednetModal() {
+            const fednetModal = document.getElementById('fednetModal');
+            fednetModal.classList.remove('show');
+        }
+
+        function proceedToFednet() {
+            window.open('FN.pdf', '_blank');
+            closeFednetModal();
+        }
+    </script>
+</head>
+<body>
+    <div id="downloadStatus" class="download-status"></div>
+
+    <!-- Documents Modal -->
+    <div id="documentsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Additional Documents</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <ul id="documentsList" class="document-list">
+            </ul>
+            <div class="modal-footer">
+                <button class="close-modal-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEDNET Instructions Modal -->
+    <div id="fednetModal" class="fednet-modal">
+        <div class="fednet-modal-content">
+            <div class="fednet-modal-header">
+                <h2>FEDNET - Important Instructions</h2>
+                <button class="close-btn" onclick="closeFednetModal()">&times;</button>
+            </div>
+            <div class="fednet-instructions">
+                <p><strong>Step 1:</strong> Please check <strong>Drisya &rarr; Customer View &rarr; Fednet</strong> and see whether <strong>FEDNET username and password is available</strong> for the customer.</p>
+
+                <p><strong>Step 2:</strong> If the same is not available for the customer, proceed with <strong>Retail Fednet Application form</strong></p>
+
+                <p><strong>Step 3:</strong> If only <strong>view option</strong> is given to constitutions like <strong>Trust, Society, Company, Association, Partnership...</strong>, to enable e-commerce transaction facility for making <strong>Govt related fund transfer, Electricity bill payments...</strong> ensure that:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Customer has been onboarded to <strong>FedOne</strong></li>
+                    <li>The same resolution along with <strong>Indemnity bond</strong> (available in additional docs) has to be used to onboard them in <strong>Fednet</strong></li>
+                </ul>
+            </div>
+
+            <div class="fednet-button-group">
+                <button class="fednet-close-btn" onclick="closeFednetModal()">Close</button>
+                <button class="fednet-proceed-btn" onclick="proceedToFednet()">Proceed to FN.pdf</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="badge">Digital Banking Desk</div>
+        <h1>FORM <span>FILLER</span></h1>
+        <p>Your one-stop hub for onboarding forms &amp; supporting documents</p>
+        <div class="rule"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Customer Request Form -->
+        <div class="form-section">
+            <a href="CRF.html" class="main-heading">
+                <span class="ico">&#128221;</span>
+                CUSTOMER REQUEST FORM
+                <span class="arrow">&rarr;</span>
+            </a>
+        </div>
+
+        <!-- Digital Onboarding Section -->
+        <div class="form-section">
+            <div class="section-label">
+                <span class="ico">&#128187;</span>
+                DIGITAL ONBOARDING
+            </div>
+
+            <div class="sub-section">
+                <div class="sub-item">
+                    <a href="SP.html" class="sub-heading">
+                        <span class="tick">a</span>
+                        SOLE PROPRIETORSHIP (FedCorp &amp; FedNet Higher Transaction Limit)
+                    </a>
+                </div>
+
+                <div class="sub-item">
+                    <a href="Partnership.html" class="sub-heading">
+                        <span class="tick">b</span>
+                        PARTNERSHIP (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadPartnershipDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="CAST.html" class="sub-heading">
+                        <span class="tick">c</span>
+                        COMPANY (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadCompanyDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="CAST.html" class="sub-heading">
+                        <span class="tick">d</span>
+                        TRUST (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadTrustDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="CAST.html" class="sub-heading">
+                        <span class="tick">e</span>
+                        SOCIETY (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadSocietyDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="CAST.html" class="sub-heading">
+                        <span class="tick">f</span>
+                        ASSOCIATION (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadAssociationDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="HUF.html" class="sub-heading">
+                        <span class="tick">g</span>
+                        HUF (FedCorp)
+                    </a>
+                </div>
+
+                <div class="sub-item">
+                    <a href="CAST.html" class="sub-heading">
+                        <span class="tick">h</span>
+                        LLP (FedCorp &amp; FedOne)
+                    </a>
+                    <button onclick="downloadLLPDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <button onclick="showFednetModal(event)" class="sub-heading" style="flex: 1;">
+                        <span class="tick">i</span>
+                        FEDNET
+                    </button>
+                    <button onclick="downloadFednetDocs(event)" class="additional-docs-btn">
+                        Additional Docs
+                    </button>
+                </div>
+
+                <div class="sub-item">
+                    <a href="FLE.html" class="sub-heading">
+                        <span class="tick">j</span>
+                        FEDNET LIMIT ENHANCEMENT
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="foot-mark">
+            <span class="foot-dot"></span>
+            <span class="foot-text">Created by <span class="foot-author">11777</span></span>
+            <span class="foot-dot"></span>
+        </div>
+    </footer>
+</body>
+</html>
